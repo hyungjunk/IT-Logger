@@ -36,7 +36,9 @@
     },
     "devDependencies": {
         "concurrently": "^5.2.0",
-        "json-server": "^0.16.1"
+        "json-server": "^0.16.1",
+        "moment": "^2.27.0",
+        "react-moment": "^0.9.7"
     },
     "proxy": "http://localhost:5000"
 }

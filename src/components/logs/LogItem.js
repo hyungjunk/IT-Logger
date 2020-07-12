@@ -1,37 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import Moment from 'react-moment';
+import PropTypes from 'prop-types'
 
-export const LogItem = () => {
-
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    getLogs();
-    // eslint-disable-next-line
-  }, []);
-
-  const getLogs = async () => {
-    setLoading(true);
-    const res = await fetch('/logs');
-    const data = await res.json();
-    setLogs(data);
-    setLoading(false);
-  }
-
-  if (loading) {
-    return <h4>Loading...</h4>
-  }
-
+const LogItem = ({ log }) => {
   return (
-    <ul className="collection-with-header">
-      <li className="collection-header">
-        <h4 className="center">System Logs</h4>
-      </li>
-      {!loading && logs.length === 0 ? (<p className="center">No logs to show...</p>)
-        : logs.map(log => (
-          <li>{log.message}</li>
-        ))}
-
-    </ul>
+    <li className="collection-item">
+      <div>
+        <a href="#edit-log-modal" className={`modal-trigger ${log.attention ? 'red-text' : 'blue-text'}`}>
+          {log.message}
+        </a>
+        <br />
+        <span className="grey-text">
+          <span className="black-text">ID #{log.id}</span>
+          <span> last updated by </span>
+          <span className="black-text">{log.tech}</span> on
+          <Moment format='MMMM Do YYYY, h:mm:ss a'>{log.date}</Moment>
+        </span>
+        <a href="#!" className="secondary-content">
+          <i className="material-icons grey-text">delete</i>
+        </a>
+      </div>
+    </li>
   )
 }
+
+LogItem.propTypes = {
+  log: PropTypes.object.isRequired
+}
+
+export default LogItem
