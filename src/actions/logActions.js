@@ -24,7 +24,7 @@ export const getLogs = () => async dispatch => {
     });
   } catch (err) {
     dispatch({
-      type: 
+      type: LOGS_ERROR
     })
   }
 }
