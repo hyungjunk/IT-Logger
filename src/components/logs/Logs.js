@@ -1,30 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import LogItem from './LogItem';
 import { Preloader } from '../layout/Preloader';
+import PropTypes from 'prop-types';
+import { getLogs } from '../../actions/logActions';
 
-export const Logs = () => {
-
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+const Logs = ({ log: { logs, loading }, getLogs }) => {
 
   useEffect(() => {
     getLogs();
     // eslint-disable-next-line
   }, []);
 
-  const getLogs = async () => {
-    setLoading(true);
-    const res = await fetch('/logs');
-    const data = await res.json();
-    setLogs(data);
-    setLoading(false);
-  }
-
-  if (loading) {
+  if (loading || logs === null) {
     return <Preloader />
-
   } else {
-
     return (
       <ul className="collection with-header">
         <li className="collection-header">
@@ -40,3 +30,14 @@ export const Logs = () => {
     )
   }
 }
+
+Logs.propTypes = {
+  log: PropTypes.object.isRequired,
+  getLogs: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  log: state.log  // 여기서 state.log는 reducer/index.js의  logReducer를 가리킨다.
+});
+
+export default connect(mapStateToProps, { getLogs })(Logs);
