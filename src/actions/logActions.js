@@ -122,7 +122,7 @@ export const setCurrent = log => {
   }
 }
 
-// set current log
+// clear current log
 export const clearCurrent = () => {
   return {
     type: CLEAR_CURRENT

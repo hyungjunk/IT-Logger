@@ -32,7 +32,7 @@ TechListModal.protoTypes = {
 }
 
 const mapStateToProps = state => ({
-  tech: state.tech,
+  tech: state.tech
 })
 
 export default connect(mapStateToProps, { getTechs })(TechListModal);
